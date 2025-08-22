@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Parts Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="antialiased">
+
+    <header class="bg-black border-b-2 border-gray-800">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-bold text-white nav-link font-anton" data-target="home">LAPTOPPARTSPRO</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a class="text-gray-300 hover:text-[#39FF14] px-3 py-2 rounded-md text-sm font-medium nav-link" data-target="home">Home</a>
+                        <a class="text-gray-300 hover:text-[#39FF14] px-3 py-2 rounded-md text-sm font-medium nav-link" data-target="products">Products</a>
+                        <a class="text-gray-300 hover:text-[#39FF14] px-3 py-2 rounded-md text-sm font-medium nav-link" data-target="build">Build Your Own</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <button class="relative p-2 rounded-full text-gray-300 hover:text-[#39FF14] focus:outline-none nav-link" data-target="cart">
+                        <span class="sr-only">View cart</span>
+                        <span class="text-2xl">🛒</span>
+                        <span id="cart-badge" class="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center hidden">0</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="view active">
+            <div class="bg-black">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+                    <h1 class="text-6xl md:text-8xl font-extrabold text-white tracking-tight uppercase">Parts & Custom Builds</h1>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-300">High-quality RAM, super-fast SSDs, powerful Processors, and more. Upgrade, repair, or build your dream machine.</p>
+                    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a class="inline-flex items-center justify-center bg-[#39FF14] text-black font-bold text-lg py-3 px-8 rounded-md hover:bg-lime-400 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-lime-500/50 nav-link" data-target="build">
+                            Build a Laptop <span class="ml-2 text-2xl">🛠️</span>
+                        </a>
+                        <a class="inline-block bg-transparent text-white font-semibold py-3 px-8 rounded-md border-2 border-gray-600 hover:bg-gray-800 hover:border-gray-700 transition-colors nav-link" data-target="products">Shop All Parts</a>
+                    </div>
+                </div>
+            </div>
+            <div class="py-16">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-4xl font-bold text-center text-white mb-10 uppercase">Featured Products</h2>
+                    <div id="featured-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="products" class="view">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <h1 class="text-4xl font-bold text-white mb-2 uppercase">All Products</h1>
+                <p class="text-gray-400 mb-8">Find the exact part you need for your laptop.</p>
+                
+                <div id="filters" class="mb-8 flex flex-wrap gap-2">
+                </div>
+
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                </div>
+            </div>
+        </section>
+
+        <section id="build" class="view">
+            <div class="bg-black">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pb-48">
+                    <div class="text-center mb-12">
+                        <h1 class="text-5xl font-extrabold text-white tracking-tight uppercase">Build Your Dream Laptop</h1>
+                        <p class="mt-3 max-w-2xl mx-auto text-lg text-gray-400">You're in control. Select your components and watch your machine come to life.</p>
+                    </div>
+                    
+                    <div id="build-options" class="max-w-4xl mx-auto space-y-10">
+                    </div>
+                </div>
+            </div>
+
+            <div id="build-summary-bar" class="fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-sm border-t-2 border-gray-800 z-40 hidden">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                    <div class="flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex items-center gap-4 flex-grow">
+                             <div class="hidden sm:block w-20 h-16 bg-gray-800 rounded-lg p-1">
+                                <div class="w-full h-full bg-black rounded-md flex items-center justify-center text-3xl">💻</div>
+                             </div>
+                             <div class="flex-1">
+                                <h3 class="font-bold text-white">Your Custom Build:</h3>
+                                <p id="summary-text" class="text-sm text-gray-400 truncate max-w-xs md:max-w-md">Select components to see summary...</p>
+                                <div id="compatibility-meter" class="hidden mt-1">
+                                    <div class="flex justify-between items-center text-xs mb-0.5">
+                                        <span class="font-semibold text-gray-400">Compatibility:</span>
+                                        <span id="compatibility-text" class="font-bold"></span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-1.5">
+                                        <div id="compatibility-bar" class="compatibility-meter-bar h-1.5 rounded-full"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 sm:gap-6">
+                            <div class="text-right">
+                                <span class="text-sm text-gray-400">Total</span>
+                                <p id="build-total" class="font-bold text-xl sm:text-2xl text-white">$100.00</p>
+                            </div>
+                            <button id="add-build-to-cart-btn" class="bg-[#39FF14] text-black font-bold py-3 px-6 rounded-md hover:bg-lime-400 transition-colors shadow-lg whitespace-nowrap">Add to Cart</button>
+                        </div>
+                    </div>
+                     <p id="build-error-message" class="text-red-500 text-xs text-center mt-2 hidden">Please select an option for each category.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="cart" class="view">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <h1 class="text-4xl font-bold text-white mb-8 uppercase">Your Shopping Cart</h1>
+                <div id="cart-container" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 space-y-4">
+                        <div id="cart-items" class="space-y-4">
+                        </div>
+                        
+                        <div id="address-section" class="hidden mt-8">
+                            <h2 class="text-2xl font-bold text-white mb-6 uppercase">Shipping Address</h2>
+                            <div class="bg-[#1F1F1F] p-6 rounded-lg">
+                                <form id="address-form" class="space-y-4">
+                                    <div>
+                                        <label for="fullName" class="block text-sm font-medium text-gray-300">Full Name</label>
+                                        <input type="text" id="fullName" class="mt-1 block w-full rounded-md bg-gray-800 border-gray-600 text-white shadow-sm focus:border-lime-500 focus:ring-lime-500 sm:text-sm" required>
+                                    </div>
+                                    <div>
+                                        <label for="address" class="block text-sm font-medium text-gray-300">Street Address</label>
+                                        <input type="text" id="address" class="mt-1 block w-full rounded-md bg-gray-800 border-gray-600 text-white shadow-sm focus:border-lime-500 focus:ring-lime-500 sm:text-sm" required>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                        <div>
+                                            <label for="city" class="block text-sm font-medium text-gray-300">City</label>
+                                            <input type="text" id="city" class="mt-1 block w-full rounded-md bg-gray-800 border-gray-600 text-white shadow-sm focus:border-lime-500 focus:ring-lime-500 sm:text-sm" required>
+                                        </div>
+                                        <div>
+                                            <label for="state" class="block text-sm font-medium text-gray-300">State / Province</label>
+                                            <input type="text" id="state" class="mt-1 block w-full rounded-md bg-gray-800 border-gray-600 text-white shadow-sm focus:border-lime-500 focus:ring-lime-500 sm:text-sm" required>
+                                        </div>
+                                        <div>
+                                            <label for="zip" class="block text-sm font-medium text-gray-300">ZIP / Postal Code</label>
+                                            <input type="text" id="zip" class="mt-1 block w-full rounded-md bg-gray-800 border-gray-600 text-white shadow-sm focus:border-lime-500 focus:ring-lime-500 sm:text-sm" required>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <label for="saveAddress" class="flex items-center">
+                                            <input type="checkbox" id="saveAddress" class="h-4 w-4 rounded border-gray-600 bg-gray-800 text-lime-500 focus:ring-lime-500">
+                                            <span class="ml-2 text-sm text-gray-300">Save this address for next time</span>
+                                        </label>
+                                    </div>
+                                    <div id="form-message" class="hidden p-3 rounded-md bg-green-900/50 text-green-300 mt-4"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="cart-summary" class="lg:col-span-1">
+                        <div class="bg-[#1F1F1F] p-6 rounded-lg sticky top-24">
+                            <h2 class="text-xl font-semibold mb-4 font-anton text-white">Order Summary</h2>
+                            <div class="flex justify-between mb-2 text-gray-300">
+                                <span>Subtotal</span>
+                                <span id="summary-subtotal">$0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2 text-gray-300">
+                                <span>Shipping</span>
+                                <span id="summary-shipping">$0.00</span>
+                            </div>
+                            <hr class="my-4 border-gray-700">
+                            <div class="flex justify-between font-bold text-lg text-white">
+                                <span>Total</span>
+                                <span id="summary-total">$0.00</span>
+                            </div>
+                            <button id="checkout-btn" class="w-full mt-6 bg-[#39FF14] text-black font-bold py-3 px-6 rounded-md hover:bg-lime-400 transition-colors">Proceed to Checkout</button>
+                            <button id="place-order-btn" class="w-full mt-6 bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-colors hidden">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black mt-16 border-t border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-400">
+            <p>&copy; 2025 LaptopPartsPro. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
